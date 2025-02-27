@@ -32,12 +32,14 @@ onde:
 
 1. **Fluxo Horizontal:**  
    Se o tubo é horizontal, então $z_1 = z_2$. Isso elimina os termos de energia potencial:
+
    $$
    \frac{P_1}{\rho g} + \frac{V_1^2}{2g} = \frac{P_2}{\rho g} + \frac{V_2^2}{2g}.
    $$
 
 2. **Velocidade Inicial Desprezível:**  
    Escolhe-se o ponto 1 em uma seção ampla antes da placa, onde o fluido tem velocidade muito baixa em comparação com a velocidade na seção restrita (vena contracta). Assim, assumimos:
+
    $$
    V_1 \approx 0.
    $$
@@ -48,22 +50,31 @@ onde:
 ### Derivação
 
 Com as simplificações, a equação de Bernoulli entre o ponto 1 (antes da restrição) e o ponto 2 (na vena contracta) torna-se:
+
 $$
 \frac{P_1}{\rho g} = \frac{P_2}{\rho g} + \frac{V_2^2}{2g}.
 $$
+
 Multiplicando ambos os lados por $g$:
+
 $$
 \frac{P_1}{\rho} = \frac{P_2}{\rho} + \frac{V_2^2}{2}.
 $$
+
 Reorganizando:
+
 $$
 \frac{P_1 - P_2}{\rho} = \frac{V_2^2}{2}.
 $$
+
 Definindo a queda de pressão $\Delta P = P_1 - P_2$, temos:
+
 $$
 \frac{\Delta P}{\rho} = \frac{V_2^2}{2}.
 $$
+
 Multiplicando por 2 e isolando $V_2$:
+
 $$
 V_2 = \sqrt{\frac{2\Delta P}{\rho}}.
 $$
@@ -74,6 +85,7 @@ Portanto, sob as condições:
 - Sem perdas dissipativas
 
 obtém-se a equação fundamental:
+
 $$
 V = \sqrt{\frac{2\Delta P}{\rho}}.
 $$
