@@ -14,10 +14,10 @@
 Para obter a relação:
 
 $$
-V = \sqrt{\frac{2\Delta P}{\rho}},
+V = \sqrt{\frac{2\Delta P}{\rho}}
 $$
 
-partimos da equação de Bernoulli para um escoamento incompressível, estacionário e sem atrito. Em sua forma geral, para dois pontos (1 e 2) ao longo de uma linha de corrente, a equação de Bernoulli é dada por
+Partimos da equação de Bernoulli para um escoamento incompressível, estacionário e sem atrito. Em sua forma geral, para dois pontos (1 e 2) ao longo de uma linha de corrente, a equação de Bernoulli é dada por
 
 $$
 \frac{P_1}{\rho g} + \frac{V_1^2}{2g} + z_1 = \frac{P_2}{\rho g} + \frac{V_2^2}{2g} + z_2,
