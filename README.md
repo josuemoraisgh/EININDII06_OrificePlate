@@ -11,7 +11,7 @@
 
 ## 1. Derivação da Equação de Velocidade a partir da Equação de Bernoulli
 
-Para obter a relação $V = \sqrt{\frac{2\Delta P}{\rho}}$, partimos da equação de Bernoulli para um escoamento incompressível, estacionário e sem atrito. Em sua forma geral, para dois pontos (1 e 2) ao longo de uma linha de corrente, a equação de Bernoulli é dada por
+Para obter a relação: $V = \sqrt{\frac{2\Delta P}{\rho}}$, partimos da equação de Bernoulli para um escoamento incompressível, estacionário e sem atrito. Em sua forma geral, para dois pontos (1 e 2) ao longo de uma linha de corrente, a equação de Bernoulli é dada por
 
 $$
 \frac{P_1}{\rho g} + \frac{V_1^2}{2g} + z_1 = \frac{P_2}{\rho g} + \frac{V_2^2}{2g} + z_2,
@@ -29,16 +29,16 @@ onde:
 1. **Fluxo Horizontal:**  
    Se o tubo é horizontal, então $z_1 = z_2$. Isso elimina os termos de energia potencial:
 
-   $$
-   \frac{P_1}{\rho g} + \frac{V_1^2}{2g} = \frac{P_2}{\rho g} + \frac{V_2^2}{2g}.
-   $$
+$$
+\frac{P_1}{\rho g} + \frac{V_1^2}{2g} = \frac{P_2}{\rho g} + \frac{V_2^2}{2g}.
+$$
 
 2. **Velocidade Inicial Desprezível:**  
    Escolhe-se o ponto 1 em uma seção ampla antes da placa, onde o fluido tem velocidade muito baixa em comparação com a velocidade na seção restrita (vena contracta). Assim, assumimos:
 
-   $$
-   V_1 \approx 0.
-   $$
+$$
+V_1 \approx 0.
+$$
 
 3. **Ausência de Perdas Dissipativas:**  
    Nesta análise ideal, não consideramos perdas por atrito ou turbulência; estas serão incorporadas posteriormente via coeficiente de descarga.
