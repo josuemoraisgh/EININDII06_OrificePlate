@@ -100,13 +100,16 @@ Na prática, o escoamento através de uma placa de orifício sofre efeitos de co
 
 1. **Área do Orifício:**  
    Se o diâmetro do orifício é $d$, a área física é
-   $$
-   A = \frac{\pi d^2}{4}.
-   $$
+
+$$
+A = \frac{\pi d^2}{4}.
+$$
+
    Como o orifício é parte de uma tubulação com diâmetro $D$, define-se a razão
-   $$
-   \beta = \frac{d}{D}.
-   $$
+
+$$
+\beta = \frac{d}{D}.
+$$
 
 2. **Correção pela Contração do Jato:**  
    Estudos experimentais indicam que a vazão teórica deve ser corrigida por um fator que depende de $\beta$. Uma correção comum é incorporar o termo $(1-\beta^4)$ no denominador, ajustando a velocidade efetiva de escoamento.
@@ -115,14 +118,19 @@ Na prática, o escoamento através de uma placa de orifício sofre efeitos de co
    Para compensar as perdas reais (devido à turbulência, efeitos de instalação, etc.), introduz-se o coeficiente de descarga $C_d$ (ou base $C$). Para fluidos compressíveis, aplica-se também o fator de expansibilidade $\varepsilon$ (que é 1 para líquidos e menor que 1 para gases).
 
 Portanto, a vazão volumétrica real é dada por:
+
 $$
 Q = C \cdot \varepsilon \cdot A \cdot \sqrt{\frac{2\Delta P}{\rho (1-\beta^4)}}.
 $$
+
 Quando outros fatores de correção são considerados (como o tipo de tomadas, condições de instalação, material da tubulação e tipo de orifício), define-se:
+
 $$
 C_{\text{eff}} = C \cdot K_{\text{tap}} \cdot K_{\text{inst}} \cdot K_{\text{material}} \cdot K_{\text{orifice}}.
 $$
+
 Substituindo, obtemos a equação final:
+
 $$
 Q = C_{\text{eff}} \cdot \varepsilon \cdot A \cdot \sqrt{\frac{2\Delta P}{\rho (1-\beta^4)}}.
 $$
@@ -132,9 +140,11 @@ $$
 ## 3. Método Iterativo para Dimensionamento de Placa de Orifício
 
 O objetivo prático é encontrar o diâmetro do orifício $d$ (ou a razão $\beta$) que atenda à vazão volumétrica desejada $Q_{\text{desired}}$. Para isso, definimos a função:
+
 $$
 f(\beta) = C_{\text{eff}} \cdot \varepsilon \cdot \frac{\pi (\beta D)^2}{4} \cdot \sqrt{\frac{2\Delta P}{\rho (1-\beta^4)}} - Q_{\text{desired}} = 0.
 $$
+
 Encontrar a raiz de $f(\beta)$ equivale a determinar o valor de $\beta$ que satisfaça a condição de vazão.
 
 ### Método da Bissecção
@@ -146,9 +156,11 @@ Escolhe-se um intervalo $[\beta_{\text{min}}, \beta_{\text{max}}]$ onde a funç�
 
 >>> 2. **Cálculo do Ponto Médio:**  
 Calcula-se o ponto médio:
+
 $$
 \beta_{\text{mid}} = \frac{\beta_{\text{min}} + \beta_{\text{max}}}{2},
 $$
+
 e avalia-se $f(\beta_{\text{mid}})$.
 
 >>> 3. **Critério de Parada:**  
@@ -161,6 +173,7 @@ Se $f(\beta_{\text{min}})$ e $f(\beta_{\text{mid}})$ tiverem sinais opostos, a r
 Repete-se o procedimento com o novo intervalo até atingir a precisão desejada.
 
 Após determinar $\beta$, o diâmetro do orifício é calculado por:
+
 $$
 d = \beta \cdot D.
 $$
@@ -216,13 +229,17 @@ Considere os seguintes parâmetros para uma aplicação com líquido:
 >>> - Tipo de orifício: "concentrico"
 
 A função a ser resolvida é:
+
 $$
 C_{\text{eff}} \cdot \varepsilon \cdot \frac{\pi (\beta D)^2}{4} \cdot \sqrt{\frac{2\Delta P}{\rho (1-\beta^4)}} - 0.02 = 0.
 $$
+
 Suponha que, após iterações via bissecção, encontre-se $\beta \approx 0.4271$. Assim, o diâmetro do orifício é:
+
 $$
 d = \beta \cdot D \approx 0.4271 \times 0.15\,\text{m} \approx 0.0641\,\text{m},
 $$
+
 ou seja, aproximadamente 64,1 mm.
 
 ---
