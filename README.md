@@ -105,7 +105,7 @@ Na prática, o escoamento através de uma placa de orifício sofre efeitos de co
    Se o diâmetro do orifício é $d$, a área física é
 
 $$
-A = \frac{\pi d^2}{4}.
+A = \frac{\pi \beta D^2}{4}.
 $$
 
    Como o orifício é parte de uma tubulação com diâmetro $D$, define-se a razão
