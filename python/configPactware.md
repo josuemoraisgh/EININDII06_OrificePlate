@@ -48,7 +48,9 @@ Este documento fornece um guia passo a passo para configurar o transmissor SMAR 
 
 3. **Função de Transferência:**  
    - Selecione a função **“Raiz Quadrada (SQRT)”** para que o transmissor aplique a extração de raiz na relação entre ΔP e vazão.
-   - Configure o ponto de corte (cut-off) da raiz quadrada se o menu permitir, geralmente em torno de 6% da faixa.
+   - Configure o ponto de corte (cut-off) da raiz quadrada se o menu permitir, geralmente em torno de 6% da faixa.  
+     > **Por que configurar o cut-off?**  
+     > Esta configuração é importante porque a função raiz quadrada é altamente sensível a pequenos valores de ΔP. Em condições de baixa pressão diferencial, o sinal pode ser afetado pelo ruído do sensor, resultando em variações instáveis na leitura. Ao definir um cut-off (por exemplo, 6% da faixa), o transmissor ignora flutuações abaixo desse limiar, evitando a amplificação do ruído e garantindo uma medição mais estável e precisa.
 
 4. **Salvar e Confirmar:**  
    - Salve as configurações e certifique-se que a saída analógica 4–20 mA esteja corretamente configurada para representar a faixa total de vazão.
