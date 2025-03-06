@@ -1,3 +1,29 @@
+## Principais Diferenças entre o Código Original e o Código para Orifício Integral
+
+### Coeficiente de Descarga ($C$)
+
+- **Orifício Convencional**: Usamos $C = 0.61$.
+- **Orifício Integral**: Ajustamos para $C = 0.64$ (um pouco maior devido ao design otimizado da tomada de pressão).
+
+### Correção de Instalação e Tomadas
+
+- **Orifício Integral**: Já possui um desenho otimizado, então os fatores de correção para instalação ($K_{\text{inst}}$) tendem a ser próximos de $1.00$. Em orifícios convencionais, esses fatores podem variar mais dependendo da montagem.
+- **Tomadas de Pressão**: São parte do próprio bloco, o que reduz as incertezas.
+
+### Removido o Tipo de Orifício
+
+- **Orifício Integral**: O formato do orifício não varia (é sempre concêntrico e projetado como parte do conjunto). Assim, removemos a correção para tipo de orifício.
+
+## Cálculo de Diâmetro de Orifício para Orifício Integral
+
+Este documento descreve um código para calcular o diâmetro de um orifício em 
+uma placa de orifício ou em um orifício integral, considerando o método convencional. 
+Os principais ajustes incluem um coeficiente de descarga e fatores de correção específicos para orifícios integrais quando esta opção é escolhida
+
+## Código Adaptado para Orifício Integral
+
+```python
+
 from compute_corrections import compute_corrections
 from find_beta import find_beta
 
@@ -24,6 +50,11 @@ def calculate_orifice_diameter(Q_desired, D, deltaP, rho, C, epsilon,
       beta        : Razão (d_orifice / D)
       corrections : Dicionário com os fatores de correção e o coeficiente efetivo.
     """
+    # Ajustes para orifício integral:
+    if tap_type.lower() == "integral":
+        C = 0.65  # O coeficiente de descarga típico para orifícios integrais é ligeiramente maior
+        orifice_type ="integral"
+
     # Calcula os fatores de correção
     K_tap, K_inst, K_material, K_orifice = compute_corrections(D, L_upstream, L_downstream, material, tap_type, orifice_type)
     C_eff = C * K_tap * K_inst * K_material * K_orifice
@@ -50,8 +81,8 @@ Q_desired = 0.02 # float(input("Digite a vazão volumétrica desejada Q (Nm³/s)
 D = 0.15 # float(input("Digite o diâmetro interno da tubulação D (m): "))
 deltaP = 50000 # float(input("Digite a queda de pressão ΔP (Pa): "))
 rho = 1000.0 # float(input("Digite a densidade do fluido ρ (kg/m³): "))
-C = 0.61 # Valor típico do coeficiente de descarga para placa de orifício
-# C = 0.64 # Valor típico do coeficiente de descarga para orifício integral 
+C = 0.61 # Valor tipico para placa de orificio
+# C = 0.65 # Valor tipico para orificio integral 
 epsilon = 1.0 # float(input("Digite o fator de expansibilidade ε (1.0 para líquidos): "))
 L_upstream = 10*D # float(input("Digite a distância a montante da placa (m): "))
 L_downstream = 5*D # float(input("Digite a distância a jusante da placa (m): "))
@@ -76,3 +107,21 @@ print(" - K_inst (instalação): {:.3f}".format(corrections["K_inst"]))
 print(" - K_material (material): {:.3f}".format(corrections["K_material"]))
 print(" - K_orifice (tipo de orifício): {:.3f}".format(corrections["K_orifice"]))
 print(" - Coeficiente de Descarga Efetivo (C_eff): {:.3f}".format(corrections["C_eff"]))
+
+
+```
+
+## Diferenças entre Orifício Convencional e Integral
+
+| Característica          | Orifício Convencional      | Orifício Integral |
+|------------------------|--------------------------|-------------------|
+| **Tomada de Pressão**  | Flange, parede ou canto  | Integrada no bloco |
+| **Coeficiente de Descarga ($C$)** | 0.61 | 0.62 - 0.64 |
+| **Facilidade de Instalação** | Requer montagem precisa | Compacto e mais fácil |
+| **Fatores de Correção** | Variam com a instalação | Menos sensível |
+| **Precisão** | Depende do posicionamento das tomadas | Menor variação |
+
+## Conclusão
+
+Este código permite calcular o diâmetro de um orifício em um orifício integral ou em uma placa de orifício. Para um sistema de 
+orifício integral, ele otimiza os fatores de correção e o coeficiente de descarga ou seja se adequa para medições de vazão onde a instalação compacta e a menor variação de coeficientes de correção são desejáveis.

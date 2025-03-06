@@ -16,11 +16,6 @@ def calculate_deltaP(Q, d, D, rho, C, epsilon, L_upstream, L_downstream, materia
       - β = d / D
       - C_eff = C * K_tap * K_inst * K_material * K_orifice
     """
-    # Ajustes para orifício integral:
-    if tap_type.lower() == "integral":
-        C = 0.65  # O coeficiente de descarga típico para orifícios integrais é ligeiramente maior
-        orifice_type ="integral"
-    
     beta = d / D
     # Obter os fatores de correção
     K_tap, K_inst, K_material, K_orifice = compute_corrections(D, L_upstream, L_downstream, material, tap_type, orifice_type)
@@ -38,7 +33,8 @@ def main():
     d = 0.0641         # Diâmetro do orifício em m (fornecido)
     D = 0.15           # Diâmetro interno da tubulação em m (fornecido)
     rho = 1000         # Densidade do fluido (kg/m³) – exemplo para água
-    C = 0.61           # Coeficiente de descarga base
+    C = 0.61 # Valor típico do coeficiente de descarga para placa de orifício
+    # C = 0.64 # Valor típico do coeficiente de descarga para orifício integral 
     epsilon = 1.0      # Fator de expansibilidade (1 para líquidos)
     L_upstream = 10*D       # Distância a montante em m
     L_downstream = 5*D      # Distância a jusante em m
