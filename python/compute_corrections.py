@@ -1,6 +1,7 @@
-def compute_corrections(tap_type, L_upstream, L_downstream, D, material, orifice_type):
+def compute_corrections(D, L_upstream, L_downstream, material, tap_type, orifice_type):
     # Fator de correção para o tipo de tomadas (taps)
     tap_correction = {
+        "integral" : 1.00,
         "flange": 1.00,
         "radius": 0.98,
         "vena": 0.95,
@@ -26,6 +27,7 @@ def compute_corrections(tap_type, L_upstream, L_downstream, D, material, orifice
 
     # Fator de correção para o tipo de orifício
     orifice_correction = {
+        "integral" : 1.00,
         "concentrico": 1.00,
         "excêntrico": 0.98,
         "segmental": 0.96,

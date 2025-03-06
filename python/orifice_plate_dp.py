@@ -1,7 +1,7 @@
 import math
 from compute_corrections import compute_corrections
 
-def calculate_deltaP(Q, d, D, rho, C, epsilon, tap_type, L_upstream, L_downstream, material, orifice_type):
+def calculate_deltaP(Q, d, D, rho, C, epsilon, L_upstream, L_downstream, material, tap_type, orifice_type):
     """
     Calcula a queda de pressão diferencial (ΔP) para uma placa de orifício
     a partir da vazão volumétrica Q, diâmetro do orifício d, diâmetro do tubo D, 
@@ -16,9 +16,14 @@ def calculate_deltaP(Q, d, D, rho, C, epsilon, tap_type, L_upstream, L_downstrea
       - β = d / D
       - C_eff = C * K_tap * K_inst * K_material * K_orifice
     """
+    # Ajustes para orifício integral:
+    if tap_type.lower() == "integral":
+        C = 0.65  # O coeficiente de descarga típico para orifícios integrais é ligeiramente maior
+        orifice_type ="integral"
+    
     beta = d / D
     # Obter os fatores de correção
-    K_tap, K_inst, K_material, K_orifice = compute_corrections(tap_type, L_upstream, L_downstream, D, material, orifice_type)
+    K_tap, K_inst, K_material, K_orifice = compute_corrections(D, L_upstream, L_downstream, material, tap_type, orifice_type)
     
     # Calcular o coeficiente de descarga efetivo
     C_eff = C * K_tap * K_inst * K_material * K_orifice
@@ -39,12 +44,12 @@ def main():
     L_downstream = 5*D      # Distância a jusante em m
     
     # Dados para fatores de correção
+    material = "steel"         # Material da tubulação (ex.: "steel")    
     tap_type = "flange"        # Tipo de tomadas (ex.: "flange")
-    material = "steel"         # Material da tubulação (ex.: "steel")
     orifice_type = "concentrico" # Tipo de orifício (ex.: "concentrico")
     
     # Calcular a queda de pressão diferencial
-    deltaP = calculate_deltaP(Q, d, D, rho, C, epsilon, tap_type, L_upstream, L_downstream, material, orifice_type)
+    deltaP = calculate_deltaP(Q, d, D, rho, C, epsilon, L_upstream, L_downstream, material, tap_type, orifice_type)
     print("Queda de pressão diferencial (ΔP): {:.2f} Pa".format(deltaP))
 
 if __name__ == "__main__":

@@ -2,7 +2,7 @@ from compute_corrections import compute_corrections
 from find_beta import find_beta
 
 def calculate_orifice_diameter(Q_desired, D, deltaP, rho, C, epsilon,
-                               L_upstream, L_downstream, tap_type, material, orifice_type):
+                               L_upstream, L_downstream, material, tap_type ="integral", orifice_type ="integral"):
     """
     Calcula o diâmetro do orifício (d) necessário para atingir a vazão volumétrica desejada.
     
@@ -15,8 +15,8 @@ def calculate_orifice_diameter(Q_desired, D, deltaP, rho, C, epsilon,
       epsilon     : Fator de expansibilidade (1.0 para líquidos)
       L_upstream  : Distância a montante (m)
       L_downstream: Distância a jusante (m)
+      material    : Material da tubulação (ex.: "steel", "cast iron", etc.)      
       tap_type    : Tipo de tomadas (ex.: "flange", "radius", etc.)
-      material    : Material da tubulação (ex.: "steel", "cast iron", etc.)
       orifice_type: Tipo de orifício (ex.: "concentrico", "excêntrico", "segmental", "conica", "bordo")
     
     Retorna:
@@ -24,8 +24,13 @@ def calculate_orifice_diameter(Q_desired, D, deltaP, rho, C, epsilon,
       beta        : Razão (d_orifice / D)
       corrections : Dicionário com os fatores de correção e o coeficiente efetivo.
     """
+    # Ajustes para orifício integral:
+    if tap_type.lower() == "integral":
+        C = 0.65  # O coeficiente de descarga típico para orifícios integrais é ligeiramente maior
+        orifice_type ="integral"
+
     # Calcula os fatores de correção
-    K_tap, K_inst, K_material, K_orifice = compute_corrections(tap_type, L_upstream, L_downstream, D, material, orifice_type)
+    K_tap, K_inst, K_material, K_orifice = compute_corrections(D, L_upstream, L_downstream, material, tap_type, orifice_type)
     C_eff = C * K_tap * K_inst * K_material * K_orifice
 
     # Encontra o beta que satisfaz Q_desired
@@ -50,20 +55,21 @@ Q_desired = 0.02 # float(input("Digite a vazão volumétrica desejada Q (Nm³/s)
 D = 0.15 # float(input("Digite o diâmetro interno da tubulação D (m): "))
 deltaP = 50000 # float(input("Digite a queda de pressão ΔP (Pa): "))
 rho = 1000.0 # float(input("Digite a densidade do fluido ρ (kg/m³): "))
-C = 0.61 # float(input("Digite o coeficiente de descarga base C (ex.: 0.61): "))
+C = 0.61 # Valor tipico para placa de orificio
+# C = 0.65 # Valor tipico para orificio integral 
 epsilon = 1.0 # float(input("Digite o fator de expansibilidade ε (1.0 para líquidos): "))
 L_upstream = 10*D # float(input("Digite a distância a montante da placa (m): "))
 L_downstream = 5*D # float(input("Digite a distância a jusante da placa (m): "))
-# print("\nTipos de tomadas disponíveis: flange, radius, vena, corner, pipe")
-tap_type = "flange" # input("Digite o tipo de tomada utilizado: ").strip()
 # print("\nMateriais de tubulação disponíveis: steel, cast iron, stainless steel, plastic, copper")
 material = "steel" # input("Digite o material da tubulação: ").strip()
-# print("\nTipos de orifício disponíveis: concentrico, excêntrico, segmental, conica, bordo")
+# print("\nTipos de tomadas disponíveis: integral, flange, radius, vena, corner, pipe")
+tap_type = "flange" # input("Digite o tipo de tomada utilizado: ").strip()
+# print("\nTipos de orifício disponíveis: integral, concentrico, excêntrico, segmental, conica, bordo")
 orifice_type = "concentrico" # input("Digite o tipo de orifício da placa: ").strip()
         
 d_orifice, beta, corrections = calculate_orifice_diameter(
     Q_desired, D, deltaP, rho, C, epsilon,
-    L_upstream, L_downstream, tap_type, material, orifice_type
+    L_upstream, L_downstream, material, tap_type, orifice_type
 )
 
 print("\nResultados:")
